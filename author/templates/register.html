@@ -3,12 +3,12 @@
 {% block content %}
 
 <div class="container d-flex flex-column align-items-center justify-content-center">
-    <h1 class="mt-5">Add Author</h1>
+    <h1 class="mt-5">{{type}} Account</h1>
     <div class="mt-3">
         <form action="" method="post">
             {% csrf_token %}
             {{form | crispy}}
-            <button type="submit" class="btn btn-lg btn-warning ">Add Author</button>
+            <button type="submit" class="btn btn-lg btn-warning mb-5">Register</button>
         </form>
     </div>
 </div>
