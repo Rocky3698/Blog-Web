@@ -35,10 +35,10 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         {% if request.user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link btn btn-warning text-dark mx-3" href="{% url 'register' %}">Profile</a>
+                            <a class="nav-link btn btn-warning text-dark mx-3" href="{% url 'edit_profile' %}">Profile</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn btn-primary text-dark mx-1" href="{% url 'user_login' %}">Logout</a>
+                            <a class="nav-link btn btn-primary text-dark mx-1" href="{% url 'user_logout' %}">Logout</a>
                         </li>
                         {% else %}
                         <li class="nav-item">

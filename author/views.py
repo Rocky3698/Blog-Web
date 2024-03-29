@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect
-from .forms import RegistrationForm
-from django.contrib.auth import authenticate,login
-from django.contrib.auth.forms import AuthenticationForm
+from .forms import RegistrationForm, UpdateProfile
+from django.contrib.auth import authenticate,login,update_session_auth_hash,logout
+from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 # def add_author(request):
 #     if request.method=='POST':
@@ -42,3 +43,32 @@ def user_login(request):
     else:
         form= AuthenticationForm(request,request.POST)
         return render(request,'register.html',{'form':form, 'type':'Login'})
+
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        profile_form= UpdateProfile(request.POST, instance= request.user)
+        if profile_form.is_valid():
+            profile_form.save()
+            messages.success(request,'Updated successfully')
+            return redirect('edit_profile')
+    else:
+        profile_form = UpdateProfile(instance= request.user)
+    return render(request,'profile.html',{'form':profile_form})
+
+
+def pass_change(request):
+    if request.method=='POST':
+        pass_form= PasswordChangeForm(request.user,request.POST)
+        if pass_form.is_valid():
+            pass_form.save()
+            messages.success(request,'Password Updated Successfully')
+            update_session_auth_hash(request,pass_form.user)
+            return redirect('edit_profile')
+    else:
+        pass_form= PasswordChangeForm(user=request.user)    
+    return render(request,'pass_change.html',{'form':pass_form})
+
+def user_logout(request):
+    logout(request)
+    return redirect('user_login')

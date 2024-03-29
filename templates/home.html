@@ -11,7 +11,7 @@
         <div class="card-body">
             <h5 class="card-title">{{post.title}}</h5>
             <p class="card-text">{{post.content | truncatewords:35}}</p>
-            <p class="card-text m-0">Author: <small class=" text-bg-info rounded-1">{{post.author.name}}</small></p>
+            <p class="card-text m-0">Author: <small class=" text-bg-info rounded-1">{{post.author.first_name}} {{post.author.last_name}}</small></p>
             <p class="m-0">Categories:
                 {% for cat in post.category.all %}
                 <small class="text-bg-success me-1 rounded-1">
